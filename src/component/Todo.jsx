@@ -15,11 +15,16 @@ export default function TodoList() {
     };
     fetchTodo();
   }, [todos]);
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     if (newTodo.trim() !== "") {
-        const response = await axios.post("http://127.0.0.1:3000/creteTodo")
+      const response = await axios.post("http://127.0.0.1:3000/creteTodo", {
+        data: { title: newTodo },
+      });
+      console.log(response);
+    }
   };
-  const handleDeleteTodo = () => {};
+  const UpdateTodo = async () => {};
+  const handleDeleteTodo = async () => {};
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4">
@@ -45,7 +50,7 @@ export default function TodoList() {
             <div className="space-x-2">
               <button
                 className="text-sm text-blue-800 hover:text-blue-900"
-                onClick={() => {}}
+                onClick={() => UpdateTodo(todo.id)}
               >
                 Edit
               </button>
