@@ -4,27 +4,33 @@ import axios from "axios";
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
+  const fetchTodo = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:3000/getTodo");
+      setTodos(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchTodo = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:3000/getTodo");
-        setTodos(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     fetchTodo();
   }, [todos]);
   const handleAddTodo = async () => {
     if (newTodo.trim() !== "") {
       const response = await axios.post("http://127.0.0.1:3000/creteTodo", {
-        data: { title: newTodo },
+        title: newTodo,
       });
       console.log(response);
     }
   };
   const UpdateTodo = async () => {};
-  const handleDeleteTodo = async () => {};
+  const handleDeleteTodo = async id => {
+    const response = await axios.delete(
+      "http://127.0.0.1:3000/deleteTodo/" + id
+    );
+    console.log(response.data);
+  };
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4">
