@@ -5,14 +5,15 @@ import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi"; // Import the necessary icon component
 import axios from "axios";
 
-function PopUpModal({ id }) {
+function PopUpModal({ id, todo }) {
   const [openModal, setOpenModal] = useState(false); // Use boolean instead of string
   const handleCloseModal = () => setOpenModal(false); // Create a separate function to close the modal
   const handleDelete = async e => {
     const response = await axios.delete(
       "http://127.0.0.1:3000/deleteTodo/" + id
     );
-    console.log(e, response);
+    // console.log(e, response);
+    handleCloseModal();
   };
   return (
     <>

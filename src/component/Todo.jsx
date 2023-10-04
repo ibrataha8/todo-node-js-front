@@ -5,7 +5,9 @@ import ModalDel from "./ModalDele";
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
+  const [updateTodoName, setUpdateTodoName] = useState("Add");
   const [newTodo, setNewTodo] = useState("");
+  const [idUpdate, setIdUpdate] = useState(null);
   const fetchTodo = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/getTodo");
@@ -17,18 +19,30 @@ export default function TodoList() {
 
   useEffect(() => {
     fetchTodo();
-  }, [todos]);
+  }, []);
   const handleAddTodo = async () => {
     if (newTodo.trim() !== "") {
       const response = await axios.post("http://127.0.0.1:3000/creteTodo", {
         title: newTodo,
       });
+      await fetchTodo();
       console.log(response);
     }
   };
-  const UpdateTodo = async (id, title) => {
+  const UpdateTodo = (id, title) => {
     setNewTodo(title);
-    
+    setUpdateTodoName("Save");
+    setIdUpdate(id);
+  };
+  const UpdateTodoVrai = async () => {
+    const response = await axios.put(
+      "http://127.0.0.1:3000/updateTodo/" + idUpdate,
+      {
+        newTitle: newTodo,
+      }
+    );
+    setTodos(response.data);
+    setUpdateTodoName("Add");
   };
 
   return (
@@ -41,8 +55,11 @@ export default function TodoList() {
           onChange={e => setNewTodo(e.target.value)}
           placeholder="Add Todo"
         />
-        <Button gradientMonochrome="cyan" onClick={handleAddTodo}>
-          Add
+        <Button
+          gradientMonochrome="cyan"
+          onClick={updateTodoName == "Add" ? handleAddTodo : UpdateTodoVrai}
+        >
+          {updateTodoName}
         </Button>
       </div>
       <ul className="mt-4">
@@ -59,8 +76,10 @@ export default function TodoList() {
               >
                 Edit
               </button>
-              <button className="text-sm text-red-600 hover:text-red-700">
-                <ModalDel id={todo.id} />
+              <button
+                className="text-sm text-red-600 hover:text-red-700"
+              >
+                <ModalDel id={todo.id} todo={todos} />
               </button>
             </div>
           </li>
