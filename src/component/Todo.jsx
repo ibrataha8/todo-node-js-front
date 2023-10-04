@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { TextInput, Button } from "flowbite-react";
 import axios from "axios";
+import ModalDel from "./ModalDele";
+
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
@@ -24,12 +26,9 @@ export default function TodoList() {
       console.log(response);
     }
   };
-  const UpdateTodo = async () => {};
-  const handleDeleteTodo = async id => {
-    const response = await axios.delete(
-      "http://127.0.0.1:3000/deleteTodo/" + id
-    );
-    console.log(response.data);
+  const UpdateTodo = async (id, title) => {
+    setNewTodo(title);
+    
   };
 
   return (
@@ -56,15 +55,12 @@ export default function TodoList() {
             <div className="space-x-2">
               <button
                 className="text-sm text-blue-800 hover:text-blue-900"
-                onClick={() => UpdateTodo(todo.id)}
+                onClick={() => UpdateTodo(todo.id, todo.title)}
               >
                 Edit
               </button>
-              <button
-                className="text-sm text-red-600 hover:text-red-700"
-                onClick={() => handleDeleteTodo(todo.id)}
-              >
-                Delete
+              <button className="text-sm text-red-600 hover:text-red-700">
+                <ModalDel id={todo.id} />
               </button>
             </div>
           </li>
