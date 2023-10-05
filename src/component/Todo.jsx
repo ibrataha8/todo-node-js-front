@@ -43,11 +43,23 @@ export default function TodoList() {
     setTodos(response.data);
     setUpdateTodoName("Add");
   };
-  const allTodo = () => {
-
+  // const allTodo = () => {};
+  const completedTodo = async id => {
+    const response = await axios.post(
+      "http://127.0.0.1:3000/updateTodoCmptd/" + id
+    );
+    console.log(response);
+    fetchTodo();
   };
-  const todoComleted = () => {
-    
+  const todoComleted = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:3000/getTodoCompleted"
+      );
+      setTodos(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className="max-w-md mx-auto mt-8 p-4">
@@ -80,6 +92,12 @@ export default function TodoList() {
               >
                 Edit
               </button>
+              <button
+                className="text-sm text-blue-800 hover:text-blue-900"
+                onClick={() => completedTodo(todo.id)}
+              >
+                {todo.completed ? "Not Ccompled" : "Complted"}
+              </button>
               <button className="text-sm text-red-600 hover:text-red-700">
                 <ModalDel onDelete={fetchTodo} id={todo.id} />
               </button>
@@ -92,7 +110,7 @@ export default function TodoList() {
         <div className="text-base font-serif">{todos.length} Todo</div>
         {/* All Todo */}
         <div className="bg-red-400">
-          <button onClick={() => allTodo()}>All Todo</button>
+          <button onClick={() => fetchTodo()}>All Todo</button>
         </div>
         <div className="bg-blue-400">
           <button onClick={() => todoComleted()}>Completed</button>
