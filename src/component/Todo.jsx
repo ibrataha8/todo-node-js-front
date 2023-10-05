@@ -61,6 +61,16 @@ export default function TodoList() {
       console.error(error);
     }
   };
+  const todoNotComleted = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:3000/getTodoNotCompleted"
+      );
+      setTodos(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="max-w-md mx-auto mt-8 p-4">
       <h1 className="text-2xl text-center font-semibold mb-4">Todo List</h1>
@@ -114,6 +124,9 @@ export default function TodoList() {
         </div>
         <div className="bg-blue-400">
           <button onClick={() => todoComleted()}>Completed</button>
+        </div>
+        <div className="bg-yellow-400">
+          <button onClick={() => todoNotComleted()}>Not Completed</button>
         </div>
       </div>
     </div>
