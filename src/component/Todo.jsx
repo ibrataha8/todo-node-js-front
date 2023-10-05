@@ -3,6 +3,9 @@ import { TextInput, Button } from "flowbite-react";
 import { Badge } from "flowbite-react";
 import axios from "axios";
 import ModalDel from "./ModalDele";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
   const [updateTodoName, setUpdateTodoName] = useState("Add");
@@ -93,23 +96,23 @@ export default function TodoList() {
         {todos.map(todo => (
           <li
             key={todo.id}
-            className="flex items-center justify-between mb-2 bg-green-400 p-3 rounded-lg text-white"
+            className="flex items-center justify-between mb-2 bg-yellow-400 p-3 rounded-lg text-white"
           >
             <span>{todo.title}</span>
             <div className="space-x-2">
               <button
-                className="text-sm text-blue-800 hover:text-blue-900"
+                className="text-sm bg-slate-300 hover:bg-slate-700 rounded-3xl p-1 text-blue-800 hover:text-white"
                 onClick={() => UpdateTodo(todo.id, todo.title)}
               >
-                Edit
+                <EditIcon />
               </button>
               <button
-                className="text-sm text-blue-800 hover:text-blue-900"
+                className="text-sm bg-slate-300 hover:bg-slate-700 rounded-3xl p-1 text-green-500 "
                 onClick={() => completedTodo(todo.id)}
               >
-                {todo.completed ? "Not Ccompled" : "Complted"}
+                {todo.completed ? <DoneAllIcon /> : <DoneOutlineIcon />}
               </button>
-              <button className="text-sm text-red-600 hover:text-red-700">
+              <button className="text-sm bg-slate-300 hover:bg-slate-700 rounded-3xl p-1 text-red-600 ">
                 <ModalDel onDelete={fetchTodo} id={todo.id} />
               </button>
             </div>

@@ -4,8 +4,9 @@ import PropTypes from "prop-types"; // Import PropTypes if you want to use it
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi"; // Import the necessary icon component
 import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-function PopUpModal({ id,onDelete  }) {
+function PopUpModal({ id, onDelete }) {
   const [openModal, setOpenModal] = useState(false); // Use boolean instead of string
   const handleCloseModal = () => setOpenModal(false); // Create a separate function to close the modal
   const handleDelete = async e => {
@@ -19,10 +20,10 @@ function PopUpModal({ id,onDelete  }) {
   return (
     <>
       <p
-        className="text-sm text-red-600 hover:text-red-700"
+        className="text-sm text-red-600 hover:text-red-700 hover:text-red-500"
         onClick={() => setOpenModal(true)}
       >
-        Delete
+        <DeleteIcon />
       </p>
       <Modal show={openModal} size="md" popup onClose={handleCloseModal}>
         <Modal.Header />
