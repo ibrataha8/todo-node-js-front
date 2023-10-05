@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { TextInput, Button } from "flowbite-react";
+import { Badge } from "flowbite-react";
 import axios from "axios";
 import ModalDel from "./ModalDele";
 export default function TodoList() {
@@ -117,16 +118,27 @@ export default function TodoList() {
       </ul>
       <div className="flex justify-between">
         {/* Number Todo */}
-        <div className="text-base font-serif">{todos.length} Todo</div>
+        <div className="flex items-center text-base font-serif">
+          <Badge className="p-3 rounded-3xl text-sm" color="info">
+            {todos.length} Todo
+          </Badge>
+        </div>
         {/* All Todo */}
-        <div className="bg-red-400">
-          <button onClick={() => fetchTodo()}>All Todo</button>
+        <div>
+          <Button onClick={() => fetchTodo()} color="blue" pill>
+            <p>All Todo</p>
+          </Button>
         </div>
-        <div className="bg-blue-400">
-          <button onClick={() => todoComleted()}>Completed</button>
+        <div>
+          <Button onClick={() => todoComleted()} color="success" pill>
+            <p>Completed</p>
+          </Button>
         </div>
-        <div className="bg-yellow-400">
-          <button onClick={() => todoNotComleted()}>Not Completed</button>
+
+        <div>
+          <Button onClick={() => todoNotComleted()} color="purple" pill>
+            <p>Not Completed</p>
+          </Button>
         </div>
       </div>
     </div>
