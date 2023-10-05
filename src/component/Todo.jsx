@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import ModalDel from "./ModalDele";
-
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
   const [updateTodoName, setUpdateTodoName] = useState("Add");
@@ -44,10 +43,15 @@ export default function TodoList() {
     setTodos(response.data);
     setUpdateTodoName("Add");
   };
+  const allTodo = () => {
 
+  };
+  const todoComleted = () => {
+    
+  };
   return (
     <div className="max-w-md mx-auto mt-8 p-4">
-      <h1 className="text-2xl font-semibold mb-4">Todo List</h1>
+      <h1 className="text-2xl text-center font-semibold mb-4">Todo List</h1>
       <div className="flex">
         <TextInput
           className="flex-grow mr-2"
@@ -76,15 +80,24 @@ export default function TodoList() {
               >
                 Edit
               </button>
-              <button
-                className="text-sm text-red-600 hover:text-red-700"
-              >
-                <ModalDel id={todo.id} todo={todos} />
+              <button className="text-sm text-red-600 hover:text-red-700">
+                <ModalDel onDelete={fetchTodo} id={todo.id} />
               </button>
             </div>
           </li>
         ))}
       </ul>
+      <div className="flex justify-between">
+        {/* Number Todo */}
+        <div className="text-base font-serif">{todos.length} Todo</div>
+        {/* All Todo */}
+        <div className="bg-red-400">
+          <button onClick={() => allTodo()}>All Todo</button>
+        </div>
+        <div className="bg-blue-400">
+          <button onClick={() => todoComleted()}>Completed</button>
+        </div>
+      </div>
     </div>
   );
 }
