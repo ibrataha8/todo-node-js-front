@@ -11,6 +11,10 @@ export default function TodoList() {
   const [updateTodoName, setUpdateTodoName] = useState("Add");
   const [newTodo, setNewTodo] = useState("");
   const [idUpdate, setIdUpdate] = useState(null);
+  const [activeButton, setActiveButton] = useState("All");
+  const handleButtonClick = nameTodo => {
+    setActiveButton(nameTodo);
+  };
   const fetchTodo = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/getTodo");
@@ -128,18 +132,42 @@ export default function TodoList() {
         </div>
         {/* All Todo */}
         <div>
-          <Button onClick={() => fetchTodo()} color="blue" pill>
+          <Button
+            onClick={() => {
+              fetchTodo();
+              handleButtonClick("All");
+            }}
+            color={activeButton === "All" ? "success" : "blue"}
+            pill
+          >
+            {" "}
             <p>All Todo</p>
           </Button>
         </div>
         <div>
-          <Button onClick={() => todoComleted()} color="success" pill>
+          <Button
+            onClick={() => {
+              todoComleted();
+              handleButtonClick("Completed");
+            }}
+            color={activeButton === "Completed" ? "success" : "blue"}
+            pill
+          >
+            {" "}
             <p>Completed</p>
           </Button>
         </div>
 
         <div>
-          <Button onClick={() => todoNotComleted()} color="purple" pill>
+          <Button
+            onClick={() => {
+              todoNotComleted();
+              handleButtonClick("NotCompleted");
+            }}
+            color={activeButton === "NotCompleted" ? "success" : "blue"}
+            pill
+          >
+            {" "}
             <p>Not Completed</p>
           </Button>
         </div>

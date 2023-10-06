@@ -20,7 +20,7 @@ function PopUpModal({ id, onDelete }) {
   return (
     <>
       <p
-        className="text-sm text-red-600 hover:text-red-700 hover:text-red-500"
+        className="text-sm text-red-600  hover:text-red-500"
         onClick={() => setOpenModal(true)}
       >
         <DeleteIcon />
