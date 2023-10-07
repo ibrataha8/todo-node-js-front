@@ -33,7 +33,9 @@ export default function TodoList() {
         title: newTodo,
       });
       await fetchTodo();
-      console.log(response);
+      setNewTodo("");
+
+      // console.log(response);
     }
   };
   const UpdateTodo = (id, title) => {
@@ -48,15 +50,15 @@ export default function TodoList() {
         newTitle: newTodo,
       }
     );
+    console.log(response.data)
     setTodos(response.data);
     setUpdateTodoName("Add");
   };
-  // const allTodo = () => {};
+
   const completedTodo = async id => {
     const response = await axios.post(
       "http://127.0.0.1:3000/updateTodoCmptd/" + id
     );
-    console.log(response);
     fetchTodo();
   };
   const todoComleted = async () => {
@@ -75,13 +77,14 @@ export default function TodoList() {
         "http://127.0.0.1:3000/getTodoNotCompleted"
       );
       setTodos(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
   return (
     <div className="max-w-md mx-auto mt-8 p-4">
-      <h1 className="text-2xl text-center font-semibold mb-4">Todo List</h1>
+      <h2 className="text-2xl text-center font-semibold mb-4">Todo List</h2>
       <div className="flex">
         <TextInput
           className="flex-grow mr-2"
