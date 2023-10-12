@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography
@@ -27,6 +28,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  let navigate = useNavigate();
   const handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,7 +39,7 @@ export default function SignIn() {
     const token = response.data.token;
     if (token) {
       localStorage.setItem("token", token);
-      
+      navigate("/todos");
     }
   };
 
